@@ -2,6 +2,7 @@
 ;;; --------------------------------------------------------------------------
 ;;; program attempts start here
 
+;;; change next line to match location of cffi-notcurses.lisp on your machine
 (load "/home/jeff/nc/cl/cffi/cl-notcurses/cffi-notcurses.lisp")
 (in-package :cffi-notcurses)
 
