@@ -24,7 +24,6 @@ $ ./example-wyatts
 
 # Running the Lisp demo
 - Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
-- If you want to run the Lisp program, you'll need to have libncurses and libncurses-ffi shared libraries on your system.
 ## Running from the command line
 - Edit example-wyatts.lisp first line so that it is pointing to your current directory where you downloaded this .git project, so it can find the cffi-notcurses.lisp file.
 - From command line:
