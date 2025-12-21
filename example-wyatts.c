@@ -16,7 +16,6 @@ int main(){
             ncplane_putchar_yx(stdplane, i, j, '*');
             notcurses_render(nc);
             sleep (0.05);
-            // int response = nanosleep(&request, &remaining);
         }
     }
     sleep(2);
