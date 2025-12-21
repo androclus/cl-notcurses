@@ -7,7 +7,7 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 
 - **cffi-notcurses.lisp** - the package with Lisp wrapper functions
 - **example-wyatts.c** - This is an updated (year 2025) version of Wyatt Sheffield's simple notcurses demo program in C from his [2020 Blog post](https://wyatts.xyz/blog/writingasimpleno_2020-02-09)
-- **example-wyatts.lisp** - The same demo program rewritten in Common Lisp and using the cffi-curses package wrapper functions in **cffi-notcurses.lisp**.
+- **example-wyatts.lisp** - The same demo program rewritten in Common Lisp and using wrapper functions in **cffi-notcurses.lisp**.
 
 # Prerequisites for running the demos
 - If you want to run the Lisp program, you'll need to have libncurses and libncurses-ffi shared libraries on your system.
