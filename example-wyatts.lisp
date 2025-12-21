@@ -1,18 +1,10 @@
-;;; try.lisp
-;;; --------------------------------------------------------------------------
-;;; program attempts start here
+;;; example-wyatts.lisp
+;;; https://github.com/androclus/cl-notcurses
 
-;;; change next line to match location of cffi-notcurses.lisp on your machine
+;;; change this next line to match location of cffi-notcurses.lisp on your machine
 (load "/home/jeff/nc/cl/cffi/cl-notcurses/cffi-notcurses.lisp")
 (in-package :cffi-notcurses)
 
-;;; Testing fopen and fclose FFI's
-;;; This does work.
-;;;(defparameter *file* (fopen "/home/jeff/temp/test.txt" "a"))
-;;;(fprintf *file* "This time I mean it REALLYREAllY.")
-;;;(fclose *file*)
-
-;;; Now let's try it with stdout and notcurses FFI's
 ;;; get a (C) handle to STDOUT, hopefully narrow (byte, ie only 8-bit wide)
 (defparameter *file* (fopen "/dev/stdout" "a"))
 
@@ -29,7 +21,7 @@
 (defparameter *nc-handle* nil)
 (defparameter *nc-stdplane* nil)
 
-;;; Let's put the whole section below within a try/catch so
+;;; Let's put the whole section below within a "try/catch" so that
 ;;; we can make sure we free up memory and return the terminal to
 ;;; its normal operating mode no matter what happens.
 (unwind-protect
@@ -59,7 +51,7 @@
        ;; Get a stdplane
        (defparameter *nc-stdplane* (notcurses-stdplane *nc-handle*))
 
-       ;; make my beloved while macro
+       ;; make my beloved "while" macro
        ;; courtesy of https://stackoverflow.com/questions/65304891/how-to-do-a-while-loop-in-common-lisp
        (defmacro while (test &body decls/tags/forms)
          `(do () ((not ,test) (values))
@@ -90,8 +82,7 @@
        ;; wait a couple of seconds at the end
        (sleep 2))
 
-  ;; unwind-protect:
-  ;; Make sure thea following 3 cleanups are done before quitting
+  ;; unwind-protect cleanups:
   ;; 1. free/release the notcurses object (and everything it contains)
   (notcurses-stop *nc-handle*)
   ;; 2. free the options struct
