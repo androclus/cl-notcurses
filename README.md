@@ -9,9 +9,6 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 - **example-wyatts.c** - This is an updated (year 2025) version of Wyatt Sheffield's simple notcurses demo program in C from his [2020 Blog post](https://wyatts.xyz/blog/writingasimpleno_2020-02-09)
 - **example-wyatts.lisp** - The same demo program rewritten in Common Lisp and using wrapper functions in **cffi-notcurses.lisp**.
 
-# Prerequisites for running the demos
-- If you want to run the Lisp program, you'll need to have libncurses and libncurses-ffi shared libraries on your system.
-
 # Compiling and running the C demo
 - Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
 - Download from your Linux repo or download the latest source from Nick's [notcurses](https://github.com/dankamongmen/notcurses) project on GitHub.
@@ -26,13 +23,15 @@ $ ./example-wyatts
 ```
 
 # Running the Lisp demo
-## From the command line
+- Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
+- If you want to run the Lisp program, you'll need to have libncurses and libncurses-ffi shared libraries on your system.
+## Running from the command line
 - Edit example-wyatts.lisp first line so that it is pointing to your current directory where you downloaded this .git project, so it can find the cffi-notcurses.lisp file.
 - From command line:
 ```bash
 $ sblc --script example-wyatts.lisp
 ```
-## From inside emacs
+## Running from inside emacs
 - If you want to mess around with the Lisp code, you can run the demo interactively from inside emacs but output to another terminal window (such as an xterm or kitty or wezterm etc.).
 - Stealing a paragraph from [plisp's excellent instructions for his project](https://github.com/Plisp/uncursed/blob/master/README.md), here are the steps:
 - For interactive development, an output terminal device is necessary but the SLIME repl within emacs does not emulate a terminal. To work around this, start a swank server in a terminal session and connect using M-x slime-connect or sly-connect in emacs.
