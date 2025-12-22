@@ -63,6 +63,10 @@
            ;; draw the asterisk at row y, column x
            (setq pcint (ncplane-putchar-yx *nc-stdplane* y x 42 ))
            ;; Register to the screen
+           ;; If you want to try showing all the asterisk lines at once,
+           ;; try moving the following line to just before
+           ;; the (sleep 2) below. (For speed in that case, you may
+           ;; also want to comment out the (sleep 0.005) line as well.)
            (setf render-output (notcurses-render *nc-handle*))
            (setf x (1+ x))
            ;; pause for 50 milliseconds
