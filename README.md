@@ -46,13 +46,13 @@ $ sblc
 ```
 - Now return to emacs and make a connection to that external slime/slynk server:
 ```lisp
-M-x slime-connect
+M-x slime-connect  ; or M-x slynk-connect
 ```
 - Then either load the file at the REPL:
 ```lisp
 CL-USER> (load "example-wyatts.lisp")
 ```
-or put the file in th editor with C-x C-s and then send it to the external swank/slynk server via M-x slime-eval-buffer (or M-x sly-eval-buffer)
+or put the file in the editor with C-x C-s and then send it to the external swank/slynk server via M-x slime-eval-buffer (or M-x sly-eval-buffer)
 - You should see the asterisks printed out in the 
 
 # Video: What it should look like
