@@ -38,16 +38,27 @@ $ sbcl --script example-wyatts.lisp
 ```bash
 $ sbcl
 ```
-- Then run these commands from the prompt:
-```lisp
-* (ql:quickload :swank) ; for sly users, this is :slynk
-* (swank:create-server :dont-close t) ; likewise, slynk:create-server
-* (loop (sleep 1))
-```
+- Then run these commands from your sbcl or other CL prompt:
+  - If you use slime:
+    ```lisp
+    * (ql:quickload :swank)
+    * (swank:create-server :dont-close t)
+    * (loop (sleep 1))
+    ```
+  - If you use sly:
+    ```lisp
+    * (ql:quickload :slynk)
+    * (slynk:create-server :dont-close t)
+    * (loop (sleep 1))
+    ```
 - Now return to emacs and make a connection to that external slime/slynk server:
-```lisp
-M-x slime-connect  ; or M-x slynk-connect
-```
+  ```lisp
+  M-x slime-connect
+  ```
+  or
+  ```lisp
+  M-x sly-connect
+  ```
 - Then either load the file at the REPL:
 ```lisp
 CL-USER> (load "example-wyatts.lisp")
@@ -55,7 +66,7 @@ CL-USER> (load "example-wyatts.lisp")
 or put the file in the editor with C-x C-s and then send it to the external swank/slynk server via M-x slime-eval-buffer (or M-x sly-eval-buffer)
 - You should see the asterisks printed out in the external swank/slynk terminal window.
 
-# Video: What it should look like
+# Video
 
 When run, both the C and Lisp versions should produce output that looks like [this](https://github.com/user-attachments/assets/c3d3b023-520b-41cb-b8d7-752378853e30).
 
