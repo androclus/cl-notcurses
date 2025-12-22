@@ -34,7 +34,7 @@ $ sblc --script example-wyatts.lisp
 - If you want to mess around with the Lisp code, you can run the demo interactively from inside emacs but output to another terminal window (such as an xterm or kitty or wezterm etc.).
 - Stealing a paragraph from [plisp's excellent instructions](https://github.com/Plisp/uncursed/blob/master/README.md), here are the steps:
 - For interactive development, an output terminal device is necessary but the SLIME repl within emacs does not emulate a terminal. To work around this, start a swank (or slynk) server in a terminal session and connect using M-x slime-connect or sly-connect in emacs.
-- Start up sblc or other CL from the shell:
+- Start up sblc or other CL from the shell in a terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.):
 ```bash
 $ sblc
 ```
