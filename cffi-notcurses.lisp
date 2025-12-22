@@ -1,7 +1,11 @@
+;;; cffi-notcurses.lisp
+;;; https://github.com/androclus/cl-notcurses
+;;; first rough draft of minimal set of notcurses CFFI wrappers
+;;; to run Wyatt Sheffield's simple demo app as a Lisp program.
 
 ;;; Once I move system to asdf (haven't learned it yet) much of this
-;;; will be reduced. For now, this all just loads what is necessary
-;;; into your running Lisp image in the script itself.
+;;; below will be reduced. For now, this all just loads what is
+;;; necessary into your running Lisp image in the script itself.
 (load "~/quicklisp/setup.lisp")
 (ql:quickload "cl-setlocale")
 (ql:quickload "asdf")
@@ -29,6 +33,16 @@
   (:unix (:or "libnotcurses-ffi.so.3" "libnotcurses-ffi.so"))
   (t (:default "libnotcurses-ffi")))
 (use-foreign-library libnotcurses-3-ffi)
+
+;;; notcurses options structure
+(defcstruct notcurses_options
+  (term :string)
+  (loglevel :int)
+  (margin-t :int)
+  (margin-r :int)
+  (margin-b :int)
+  (margin-l :int)
+  (flags :int64))
 
 ;;; C Def (include/notcurses/notcurses.h):
 ;;;    API ALLOC struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);

@@ -1,33 +1,30 @@
 ;;; example-wyatts.lisp
 ;;; https://github.com/androclus/cl-notcurses
-
+;;; example Lisp program to print 25 rows of 25 asterisks
+;;; using notcurses via Lisp CFFI
+;;;
 ;;; change this next line to match location of cffi-notcurses.lisp on your machine
 (load "/home/jeff/nc/cl/cffi/cl-notcurses/cffi-notcurses.lisp")
 (in-package :cffi-notcurses)
 
+;;; make my beloved "while" macro
+;;; courtesy of
+;;; https://stackoverflow.com/questions/65304891/how-to-do-a-while-loop-in-common-lisp
+(defmacro while (test &body decls/tags/forms)
+  `(do () ((not ,test) (values))
+     ,@decls/tags/forms))
+
 ;;; get a (C) handle to STDOUT, hopefully narrow (byte, ie only 8-bit wide)
 (defparameter *file* (fopen "/dev/stdout" "a"))
 
-(defcstruct notcurses_options
-  (term :string)
-  (loglevel :int)
-  (margin-t :int)
-  (margin-r :int)
-  (margin-b :int)
-  (margin-l :int)
-  (flags :int64))
-
-(defparameter *nc-opts-ptr* nil)
-(defparameter *nc-handle* nil)
-(defparameter *nc-stdplane* nil)
-
 ;;; Let's put the whole section below within a "try/catch" so that
-;;; we can make sure we free up memory and return the terminal to
-;;; its normal operating mode no matter what happens.
+;;; we can make sure that no matter what happens, we will free up memory
+;;; and return the terminal to its normal operating mode.
 (unwind-protect
      (progn
-       ;; create a global pointer and allocate memory (in C space) for the notcurses-options struct
-       (defparameter *nc-opts-ptr* (cffi:foreign-alloc '(:struct notcurses_options)))
+       ;; create a global pointer and allocate memory (in C space) for the
+       ;; notcurses-options struct
+       (setf *nc-opts-ptr* (cffi:foreign-alloc '(:struct notcurses_options)))
 
        ;; Access and set the fields using foreign-slot-value (or with-foreign-slots)
        (setf
@@ -46,33 +43,27 @@
 ;;;(terpri)
 
        ;; Initialize notcurses, picking up the handle (pointer) to the main nc object
-       (defparameter *nc-handle* (notcurses-init *nc-opts-ptr* *file*))
+       (setf *nc-handle* (notcurses-init *nc-opts-ptr* *file*))
        
        ;; Get a stdplane
-       (defparameter *nc-stdplane* (notcurses-stdplane *nc-handle*))
-
-       ;; make my beloved "while" macro
-       ;; courtesy of https://stackoverflow.com/questions/65304891/how-to-do-a-while-loop-in-common-lisp
-       (defmacro while (test &body decls/tags/forms)
-         `(do () ((not ,test) (values))
-            ,@decls/tags/forms))
+       (setf *nc-stdplane* (notcurses-stdplane *nc-handle*))
 
        ;; y (rows): we will make 25 rows of asterisks
-       (defparameter y 1)
-       (defparameter ymax 26)
+       (setf y 1)
+       (setf ymax 26)
        ;; x (columns): we will make 25 (columns of) asterisks in each row
-       (defparameter x 1)
-       (defparameter xmax 26)
+       (setf x 1)
+       (setf xmax 26)
 
        ;; return value for putting a character into a cell
-       (defparameter pcint nil)
+       (setf pcint nil)
 
        (while (< y ymax)
          (while (< x xmax)
            ;; draw the asterisk at row y, column x
            (setq pcint (ncplane-putchar-yx *nc-stdplane* y x 42 ))
            ;; Register to the screen
-           (defparameter render-output (notcurses-render *nc-handle*))
+           (setf render-output (notcurses-render *nc-handle*))
            (setf x (1+ x))
            ;; pause for 50 milliseconds
            (sleep 0.005))
