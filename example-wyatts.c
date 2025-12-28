@@ -55,9 +55,8 @@ int main(){
   sleep(2);
 
   // shut everything down, deallocate the memory, and return
-  // the terminal to standard I/O mode
-  notcurses_stop(nc);
-  // check successful
+  // the terminal to standard I/O mode. Check if successful.
+  // Return non-zero error code if not.
   if (notcurses_stop(nc)) {
     // Note that the terminal may not be returned to standard I/O mode
     return EXIT_FAILURE;
