@@ -63,7 +63,7 @@ $ sbcl
 ```lisp
 CL-USER> (load "example-wyatts.lisp")
 ```
-or put the file in the editor with C-x C-s and then send it to the external swank/slynk server via M-x slime-eval-buffer (or M-x sly-eval-buffer)
+or bring the file into the editor with C-x C-f and then send it to the external swank/slynk server via M-x slime-eval-buffer (or M-x sly-eval-buffer)
 - You should see the asterisks printed out in the external swank/slynk terminal window.
 
 # Video
