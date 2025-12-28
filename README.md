@@ -59,11 +59,20 @@ $ sbcl
   ```lisp
   M-x sly-connect
   ```
-- Then either load the file at the REPL:
-```lisp
-CL-USER> (load "example-wyatts.lisp")
-```
-or bring the file into the editor with C-x C-f and then send it to the external swank/slynk server via M-x slime-eval-buffer (or M-x sly-eval-buffer)
+- Then either 
+  - load the file at the REPL:
+    ```lisp
+    CL-USER> (load "example-wyatts.lisp")
+    ```
+    or
+  - bring the file into the editor with C-x C-f and then evaluate it, sending the output to the external swank/slynk server window via
+    ```emacs
+    M-x slime-eval-buffer
+    ```
+    or
+    ```emacs
+    M-x sly-eval-buffer
+    ```
 - You should see the asterisks printed out in the external swank/slynk terminal window.
 
 # Video
