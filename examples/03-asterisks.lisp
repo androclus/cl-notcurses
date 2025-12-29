@@ -68,12 +68,13 @@
              (xmax 26)    ;; number of columns
              (y  1)       ;; loop counter for rows
              (x  1)       ;; loop counter for columns
-             (pcint nil)
-             (render-output nil)) ;; return value for putting a character into a cell
+             (pcint nil)  ;; return val (unused here) for whether putchar was successful
+             (render-output nil)  ;; return value for putting a character into a cell
+             (asterisk (char-code #\*))) ;; asterisk in ASCII is integer 42
          (while (< y ymax)
                 (while (< x xmax)
                        ;; draw the asterisk at row y, column x
-                       (setq pcint (ncplane-putchar-yx *nc-stdplane* y x 42 )) ;; asterisk is ASCII 42
+                       (setq pcint (ncplane-putchar-yx *nc-stdplane* y x asterisk))
                        ;; Register to the screen
                        ;; If you want to try showing all the asterisk lines at once,
                        ;; try moving the following line to just before
