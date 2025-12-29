@@ -69,8 +69,8 @@
              (y  0)       ;; loop counter for rows
              (x  0)       ;; loop counter for columns
              (pcint nil)  ;; return val (unused here) for whether putchar was successful
-             (render-output nil)  ;; return value for putting a character into a cell
-             (asterisk (char-code #\*))) ;; asterisk in ASCII is integer 42
+             (render-output nil)  ;; return value for putting a character into a cell (also unused here)
+             (asterisk (char-code #\*))) ;; asterisk (*) is ASCII integer 42
          (while (< y ymax)
                 (while (< x xmax)
                        ;; draw the asterisk at row y, column x
@@ -81,7 +81,7 @@
                        ;; the (sleep 2) below. (For speed in that case, you may
                        ;; also want to comment out the (sleep 0.005) line as well.)
                        (setq render-output (notcurses-render *nc-handle*))
-                       (setq x (1+ x))
+                       (setq x (1+ x)) ;; move to the right one cell
                        ;; pause for 50 milliseconds
                        (sleep 0.005))
                 (setq x 0) ; return to 1st column
