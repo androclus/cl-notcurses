@@ -19,16 +19,22 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
   $ ./run.sh 03-asterisks.lisp
   ```
 ## Running from inside emacs
-- The following directions will be familiar already to long-time emacs users who program in CL, but for the sake of those (like myself) starting out, I have found [a paragraph from plisp](https://github.com/Plisp/uncursed/blob/master/README.md) to be highly useful, and have reproduced them here in slightly extended form. To wit: 
-- If you want to tinker with the Lisp code, you can run the demos interactively from inside emacs but output to another terminal window (such as an xterm or kitty or wezterm etc.).
-- This way, you can use your separate terminal window for output. This is especially helpful for working with notcurses (and ncurses) and any other library which changes the modes the terminal is in.
+- If you want to tinker with the Lisp code and see what it does to an I/O terminal in real time, you'll need to have a different terminal window for live output. (You wouldn't want to be attempting to send notcurses output to your emacs window). To do so, what most emacs CL developers apparently do is set up a client-server relationship like the following:
 
-1. Open up another terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.) and start up your Lisp processor just at the terminal
+1. Open up another terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.)
+2. Start up your Lisp processor inside that terminal window:
   ```bash
   $ sbcl
+  This is SBCL 2.5.11-1.1-suse, an implementation of ANSI Common Lisp.
+  More information about SBCL is available at <http://www.sbcl.org/>.
+
+  SBCL is free software, provided as is, with absolutely no warranty.
+  It is mostly in the public domain; some portions are provided under
+  BSD-style licenses.  See the CREDITS and COPYING files in the
+  distribution for more information.
   * _
-```
-2. Then run these commands from your sbcl or other CL prompt:
+  ```
+3. Then run these commands from that prompt:
   - If you use slime:
     ```lisp
     * (ql:quickload :swank)
@@ -41,7 +47,7 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
     * (slynk:create-server :dont-close t)
     * (loop (sleep 1))
     ```
-3. Now return to emacs and
+4. Now return to emacs and
   - Make a connection to that external slime server
     ```lisp
     M-x slime-connect
@@ -50,7 +56,7 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
     ```lisp
     M-x sly-connect
     ```
-4. Then either 
+5. Then either 
   - load the file at the REPL:
     ```lisp
     CL-USER> (load "<path-to>/03-asterisks.lisp")
@@ -63,4 +69,17 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
     or
     ```emacs
     M-x sly-eval-buffer
+    ```
+6. When you are done, you can close down the slime/slynk server from within emacs by
+  - for slime:
+    ```
+    M-x slime-disconnect
+    ```
+  - for sly:
+    ```
+    M-x sly-disconnect
+    ```
+  - and then quit inside emacs at the prompt:
+    ```
+    CL-USER> (quit)
     ```
