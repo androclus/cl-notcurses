@@ -18,18 +18,14 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
   ```
   $ ./run.sh 03-asterisks.lisp
   ```
-- Edit example-wyatts.lisp first line so that it is pointing to your current directory where you downloaded this .git project, so it can find the cffi-notcurses.lisp file.
-- From command line:
-```bash
-$ sbcl --script example-wyatts.lisp
-```
 ## Running from inside emacs
 - If you want to mess around with the Lisp code, you can run the demo interactively from inside emacs but output to another terminal window (such as an xterm or kitty or wezterm etc.).
-- Stealing a paragraph from [plisp's excellent instructions](https://github.com/Plisp/uncursed/blob/master/README.md), here are the steps:
-- For interactive development, an output terminal device is necessary but the SLIME repl within emacs does not emulate a terminal. To work around this, start a swank (or slynk) server in a terminal session and connect using M-x slime-connect or sly-connect in emacs.
-- Start up sbcl or other CL from the shell in a terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.):
+- Unabashedly copying [a paragraph from plisp](https://github.com/Plisp/uncursed/blob/master/README.md), here are the steps:
+- For interactive development, an output terminal device is necessary but the SLIME repl within emacs does not emulate a terminal. To work around this:
+- Open up another terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.) and start up your Lisp processor just at the terminal
 ```bash
 $ sbcl
+* _
 ```
 - Then run these commands from your sbcl or other CL prompt:
   - If you use slime:
@@ -55,7 +51,7 @@ $ sbcl
 - Then either 
   - load the file at the REPL:
     ```lisp
-    CL-USER> (load "<path-to>03-asterisks.lisp")
+    CL-USER> (load "<path-to>/03-asterisks.lisp")
     ```
     or
   - bring the file into the editor with C-x C-f and then evaluate it, sending the output to the external swank/slynk server window via
