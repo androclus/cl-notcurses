@@ -64,10 +64,10 @@
        (defparameter *nc-stdplane* (notcurses-stdplane *nc-handle*))
 
 
-       (let ((ymax 26)    ;; number of rows
-             (xmax 26)    ;; number of columns
-             (y  1)       ;; loop counter for rows
-             (x  1)       ;; loop counter for columns
+       (let ((ymax 25)    ;; number of rows
+             (xmax 25)    ;; number of columns
+             (y  0)       ;; loop counter for rows
+             (x  0)       ;; loop counter for columns
              (pcint nil)  ;; return val (unused here) for whether putchar was successful
              (render-output nil)  ;; return value for putting a character into a cell
              (asterisk (char-code #\*))) ;; asterisk in ASCII is integer 42
@@ -84,7 +84,7 @@
                        (setq x (1+ x))
                        ;; pause for 50 milliseconds
                        (sleep 0.005))
-                (setq x 1) ; return to 1st column
+                (setq x 0) ; return to 1st column
                 (setq y (1+ y))) ; and go down to next row
 
          ;; wait a couple of seconds at the end
