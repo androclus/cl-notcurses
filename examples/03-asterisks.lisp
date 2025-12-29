@@ -60,10 +60,12 @@
        ;; Initialize notcurses, picking up the handle (pointer) to the main nc object
        (defparameter *nc-handle* (notcurses-init *nc-opts-ptr* *file*))
        
-       ;; Get a stdplane
+       ;; Get the stdplane
        (defparameter *nc-stdplane* (notcurses-stdplane *nc-handle*))
 
-
+       ;; loop across 25 columns (x's) and down 25 rows (y's), drawing an asterisk
+       ;; in each y,x position, and re-rendering each time.
+       ;; There are much faster ways of doing this, but this is just a simple demo.
        (let ((ymax 25)    ;; number of rows
              (xmax 25)    ;; number of columns
              (y  0)       ;; loop counter for rows
