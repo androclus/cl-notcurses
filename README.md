@@ -6,25 +6,18 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 # Files
 
 - **cffi-notcurses.lisp** - the package with Lisp wrapper functions
-- **example-wyatts.c** - This is an updated (year 2025) version of Wyatt Sheffield's simple notcurses demo program in C from his [2020 Blog post](https://wyatts.xyz/blog/writingasimpleno_2020-02-09)
-- **example-wyatts.lisp** - The same demo program rewritten in Common Lisp and using wrapper functions in **cffi-notcurses.lisp**.
+- **examples/** - A directory of example lisp programs using the wrappers
 
-# Compiling and running the C demo
-- Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
-- Download from your Linux repo or download the latest source from Nick's [notcurses](https://github.com/dankamongmen/notcurses) project on GitHub.
-- To compile the C program:
+# Running the Lisp demos
 
-```bash
-$ gcc -o example-wyatts example-wyatts.c $(pkg-config --static --libs notcurses) -D_XOPEN_SOURCE=800
-```
-- Then to run:
-```bash
-$ ./example-wyatts
-```
-
-# Running the Lisp demo
-- Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
 ## Running from the command line
+- cd to examples/
+- Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
+- Edit the run.sh script to point CLEXE to your preferred Common Lisp compiler
+- Run the run.sh command with any .lisp file in the directory
+  ```
+  $ ./run.sh 03-asterisks.lisp
+  ```
 - Edit example-wyatts.lisp first line so that it is pointing to your current directory where you downloaded this .git project, so it can find the cffi-notcurses.lisp file.
 - From command line:
 ```bash
@@ -62,7 +55,7 @@ $ sbcl
 - Then either 
   - load the file at the REPL:
     ```lisp
-    CL-USER> (load "example-wyatts.lisp")
+    CL-USER> (load "<path-to>03-asterisks.lisp")
     ```
     or
   - bring the file into the editor with C-x C-f and then evaluate it, sending the output to the external swank/slynk server window via
@@ -73,9 +66,4 @@ $ sbcl
     ```emacs
     M-x sly-eval-buffer
     ```
-- You should see the asterisks printed out in the external swank/slynk terminal window.
-
-# Video
-
-When run, both the C and Lisp versions should produce output that looks like [this](https://github.com/user-attachments/assets/c3d3b023-520b-41cb-b8d7-752378853e30).
-
+    
