@@ -1,10 +1,21 @@
-;;; example-wyatts.lisp
-;;; https://github.com/androclus/cl-notcurses
-;;; example Lisp program to print 25 rows of 25 asterisks
-;;; using notcurses via Lisp CFFI
+;;; 03-asterisks.lisp
+;;;   https://github.com/androclus/cl-notcurses/blob/main/examples/03-asterisks.lisp
 ;;;
-;;; change this next line to match location of cffi-notcurses.lisp on your machine
-(load "/home/jeff/nc/cl/cffi/cl-notcurses/cffi-notcurses.lisp")
+;;; A Lisp CFFI wrapper version of the C notcurses simple example
+;;;   https://github.com/dankamongmen/libnotcurses-sys/blob/main/examples/C/03-asterisks.c
+;;;
+;;; This program prints 25 rows of 25 asterisks each, using the CFFI wrapper
+;;; ncplane-putchar-yx
+;;;
+;;; Requires the following shared libraries be installed on your system:
+;;;   - libnotcurses (e.g. /usr/lib64/libnotcurses.so.3)
+;;;   - libnotcurses-ffi3 (e.g. /usr/lib64/libnotcurses-ffi.so.3)
+;;;
+;;; ..and of course a Common Lisp engine. (Built and tested on SBCL.)
+;;;
+;;; Load the notcurses lisp wrappers defined in the parent directory of this
+;;; repository
+(load "../cffi-notcurses.lisp")
 (in-package :cffi-notcurses)
 
 ;;; make my beloved "while" macro
