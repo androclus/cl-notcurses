@@ -19,15 +19,16 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
   $ ./run.sh 03-asterisks.lisp
   ```
 ## Running from inside emacs
-- If you want to mess around with the Lisp code, you can run the demo interactively from inside emacs but output to another terminal window (such as an xterm or kitty or wezterm etc.).
-- Unabashedly copying [a paragraph from plisp](https://github.com/Plisp/uncursed/blob/master/README.md), here are the steps:
-- For interactive development, an output terminal device is necessary but the SLIME repl within emacs does not emulate a terminal. To work around this:
-- Open up another terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.) and start up your Lisp processor just at the terminal
-```bash
-$ sbcl
-* _
+- The following directions will be familiar already to long-time emacs users who program in CL, but for the sake of those (like myself) starting out, I have found [a paragraph from plisp](https://github.com/Plisp/uncursed/blob/master/README.md) to be highly useful, and have reproduced them here in slightly extended form. To wit: 
+- If you want to tinker with the Lisp code, you can run the demos interactively from inside emacs but output to another terminal window (such as an xterm or kitty or wezterm etc.).
+- This way, you can use your separate terminal window for output. This is especially helpful for working with notcurses (and ncurses) and any other library which changes the modes the terminal is in.
+
+1. Open up another terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.) and start up your Lisp processor just at the terminal
+  ```bash
+  $ sbcl
+  * _
 ```
-- Then run these commands from your sbcl or other CL prompt:
+2. Then run these commands from your sbcl or other CL prompt:
   - If you use slime:
     ```lisp
     * (ql:quickload :swank)
@@ -40,15 +41,16 @@ $ sbcl
     * (slynk:create-server :dont-close t)
     * (loop (sleep 1))
     ```
-- Now return to emacs and make a connection to that external slime/slynk server:
-  ```lisp
-  M-x slime-connect
-  ```
-  or
-  ```lisp
-  M-x sly-connect
-  ```
-- Then either 
+3. Now return to emacs and
+  - Make a connection to that external slime server
+    ```lisp
+    M-x slime-connect
+    ```
+  - or slynk server
+    ```lisp
+    M-x sly-connect
+    ```
+4. Then either 
   - load the file at the REPL:
     ```lisp
     CL-USER> (load "<path-to>/03-asterisks.lisp")
@@ -62,4 +64,3 @@ $ sbcl
     ```emacs
     M-x sly-eval-buffer
     ```
-    
