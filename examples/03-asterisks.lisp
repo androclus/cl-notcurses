@@ -68,8 +68,8 @@
              (xmax 25)    ;; number of columns
              (y  0)       ;; loop counter for rows
              (x  0)       ;; loop counter for columns
-             (pcint nil)  ;; return val (unused here) for whether putchar was successful
-             (render-output nil)  ;; return value for putting a character into a cell (also unused here)
+             (pcint nil)  ;; return value (unused here) for whether putchar was successful
+             (render-output nil)  ;; return value (unused here) for whether render was successful
              (asterisk (char-code #\*))) ;; asterisk (*) is ASCII integer 42
          (while (< y ymax)
                 (while (< x xmax)
