@@ -73,7 +73,7 @@
          (while (< y ymax)
                 (while (< x xmax)
                        ;; draw the asterisk at row y, column x
-                       (setq pcint (ncplane-putchar-yx *nc-stdplane* y x 42 ))
+                       (setq pcint (ncplane-putchar-yx *nc-stdplane* y x 42 )) ;; asterisk is ASCII 42
                        ;; Register to the screen
                        ;; If you want to try showing all the asterisk lines at once,
                        ;; try moving the following line to just before
