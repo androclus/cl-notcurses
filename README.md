@@ -13,15 +13,18 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 ## Running from the command line
 - Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
   ```
-  /usr/lib64/libnotcurses-core.so =>
-    /usr/lib64/libnotcurses-core.so.3 =>
-      /usr/lib64/libnotcurses-core.so.3.0.16
-  /usr/lib64/libnotcurses-ffi.so =>
-    /usr/lib64/libnotcurses-ffi.so.3 =>
-      /usr/lib64/libnotcurses-ffi.so.3.0.16
   /usr/lib64/libnotcurses.so =>
     /usr/lib64/libnotcurses.so.3 =>
       /usr/lib64/libnotcurses.so.3.0.16
+
+  /usr/lib64/libnotcurses-core.so =>
+    /usr/lib64/libnotcurses-core.so.3 =>
+      /usr/lib64/libnotcurses-core.so.3.0.16
+
+  /usr/lib64/libnotcurses-ffi.so =>
+    /usr/lib64/libnotcurses-ffi.so.3 =>
+      /usr/lib64/libnotcurses-ffi.so.3.0.16
+
   ```
   and came in the rpm packages
   ```
