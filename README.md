@@ -11,10 +11,29 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 # Running the Lisp demos
 
 ## Running from the command line
-- cd to examples/
-- Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system, as well as the development files (e.g., /usr/include/notcurses/notcurses.h).
-- Edit the run.sh script to point CLEXE to your preferred Common Lisp compiler
-- Run the run.sh command with any .lisp file in the directory
+- Make sure you have the notcurses shared libraries (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
+  ```
+  /usr/lib64/libnotcurses-core.so =>
+    /usr/lib64/libnotcurses-core.so.3 =>
+      /usr/lib64/libnotcurses-core.so.3.0.16
+  /usr/lib64/libnotcurses-ffi.so =>
+    /usr/lib64/libnotcurses-ffi.so.3 =>
+      /usr/lib64/libnotcurses-ffi.so.3.0.16
+  /usr/lib64/libnotcurses.so =>
+    /usr/lib64/libnotcurses.so.3 =>
+      /usr/lib64/libnotcurses.so.3.0.16
+  ```
+  and came in the rpm packages
+  ```
+  libnotcurses3
+  libnotcurses-core3
+  libnotcurses-ffi3
+  ```
+  respectively.
+- *(Note that if you want to add to the wrappers, you'll need access to the .h files as a reference, which would require the additional -devel versions of these packages.)*
+- cd to the examples/ directory at the command line.
+- Edit the run.sh script to point CLEXE to your preferred Common Lisp compiler (default=sbcl).
+- Run the run.sh command with any .lisp file in the directory. E.g.,
   ```
   $ ./run.sh 03-asterisks.lisp
   ```
