@@ -68,14 +68,14 @@
 
 ;;; I add a convenience function here which is not in notcurses.h
 (defun ncoptions-flags-bitfield-value (x)
-  (foreign-bitfield-value 'ncoption-flags x))
+  (declare (type list x))
+  "Return the bitfield sum of all the options flags in the list x.
+Then this value may be used to set the flags field of the notcurses-options cstruct.
 
-;;; Example:
-;;; (ncoptions-flags-bitfield-value '(:ncoption-preserve-cursor
-;;;                                   :ncoption-scrolling))
-;;; => #x0210, or 528 decimal
-;;;
-;;; Then this can be used to set the flags field of the ncoptions struct above
+Example:
+(ncoptions-flags-bitfield-value '(:ncoption-preserve-cursor
+                                  :ncoption-scrolling)) => #x0210 (528)"
+  (foreign-bitfield-value 'ncoption-flags x))
 
 ;;; C Def (include/notcurses/notcurses.h):
 ;;;    API ALLOC struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
