@@ -79,7 +79,7 @@
 (defcfun ("ncplane_putchar_yx" ncplane-putchar-yx) :int (stdplane :pointer) (i :int) (j :int) (c :uchar))
 
 ;;; ncplane_putstr_yx(notcurses_stdplane(nc), 0, 0, "hello world");
-(defcfun ("ncplane_putstr_yx" ncplane-putstr-yx) :int (stdplane :pointer) (i :int) (j :int) (c :uchar))
+(defcfun ("ncplane_putstr_yx" ncplane-putstr-yx) :int (stdplane :pointer) (i :int) (j :int) (s :string))
 
 ;;; C example:
 ;;;    notcurses_render(nc);
