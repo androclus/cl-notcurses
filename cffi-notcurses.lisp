@@ -72,7 +72,14 @@
 ;;;    ncplane_putchar_yx(stdplane, i, j, '*');
 ;;; Put a character (signed or unsigned 8 bit) into a cell and cell into
 ;;; the plane
+;;;
+;;; Note to CL users: For the c uchar, you need to supply a simple integer. For
+;;; instance, to draw an asterisk *, you'd need to supply a 42 (which is an
+;;; asterisk in ASCII) or else (char-code #\*) which results in the same 42
 (defcfun ("ncplane_putchar_yx" ncplane-putchar-yx) :int (stdplane :pointer) (i :int) (j :int) (c :uchar))
+
+;;; ncplane_putstr_yx(notcurses_stdplane(nc), 0, 0, "hello world");
+(defcfun ("ncplane_putstr_yx" ncplane-putstr-yx) :int (stdplane :pointer) (i :int) (j :int) (c :uchar))
 
 ;;; C example:
 ;;;    notcurses_render(nc);
