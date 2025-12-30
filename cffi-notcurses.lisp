@@ -44,6 +44,39 @@
   (margin-l :int)
   (flags :int64))
 
+;;; Bitfield values for the notcurses_options flags field. See notcurses.h for
+;;; the original C values. (I also got help on how to do this from
+;;; https://www.quicklisp.org/beta/UNOFFICIAL/docs/cffi/doc/defbitfield.html )
+(defbitfield ncoption-flags
+  (:ncoption-inhibit-setlocale #x0001)
+  (:ncoption-no-clear-bitmaps #x0002)
+  (:ncoption-no-winch-sighandler #x0004)
+  (:ncoption-no-quit-sighandlers #x0008)
+  (:ncoption-preserve-cursor #x0010)
+  (:ncoption-suppress-banners #x0020)
+  (:ncoption-no-alternate-screen #x0040)
+  (:ncoption-no-font-changes #x0080)
+  (:ncoption-drain-input #x0100)
+  (:ncoption-scrolling #x0200)
+  (:ncoption-cli-mode #x0252)) ; "CLI MODE": A convenience for an often-used combination
+                               ; which sets these four all at once:
+                               ;   x0040 no alternate screen
+                               ;   x0002 no clear bitmaps
+                               ;   x0010 preserve cursor
+                               ;   x0200 scrolling
+                               ;     => x252, i.e., 594
+
+;;; I add a convenience function here which is not in notcurses.h
+(defun ncoptions-flags-bitfield-value (x)
+  (foreign-bitfield-value 'ncoption-flags x))
+
+;;; Example:
+;;; (ncoptions-flags-bitfield-value '(:ncoption-preserve-cursor
+;;;                                   :ncoption-scrolling))
+;;; => #x0210, or 528 decimal
+;;;
+;;; Then this can be used to set the flags field of the ncoptions struct above
+
 ;;; C Def (include/notcurses/notcurses.h):
 ;;;    API ALLOC struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
 ;;; C Example:
@@ -53,7 +86,9 @@
 ;;; As parameters, give it a pointer to a notcurses-options struct, and to stdout
 (defctype nchandle :pointer)
 (defcfun ("notcurses_init" notcurses-init) :pointer (opts :pointer) (fp :pointer ))
-;;;(fmakunbound 'notcurses-init)
+
+;;; And the (lightweight) version for cases where there will be no "media" needs
+(defcfun ("notcurses_core_init" notcurses-core-init) :pointer (opts :pointer) (fp :pointer ))
 
 ;;; C Def (include/notcurses/notcurses.h):
 ;;;    API int notcurses_stop(struct notcurses* nc);
