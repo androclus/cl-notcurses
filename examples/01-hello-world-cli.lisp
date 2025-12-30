@@ -11,7 +11,8 @@
 ;;; Load the notcurses lisp wrappers defined in the parent directory of this
 ;;; repository. (If you run from elsewhere or from inside Emacs, you may need to
 ;;; set this to an absolute pathname.)
-(load "../cffi-notcurses.lisp")
+;;;(load "../cffi-notcurses.lisp")
+(load "/home/jeff/nc/cl/cffi/cl-notcurses/cffi-notcurses.lisp")
 
 ;;; pick up our CFFI notcurses wrapper definitions
 (in-package :cffi-notcurses)
@@ -22,6 +23,7 @@
 (defparameter *putstr-output* nil) ;; result of putstr (unused in this example)
 (defparameter *render-output* nil) ;; result of render (unused in this example)
 (defparameter *ncoflags* nil) ;; flags field of notcurses options, to set behavior
+(defparameter *move-rel-output* nil) ;; result of moverel (unused in this example)
 
 ;;; get a (C) handle to STDOUT, hopefully narrow (byte, ie only 8-bit wide)
 (defparameter *file* (fopen "/dev/stdout" "a"))
@@ -60,7 +62,10 @@
        (defparameter *nc-stdplane* (notcurses-stdplane *nc-handle*))
 
        ;; Write the string to the standard plane
-       (defparameter *putstr-output* (ncplane-putstr-yx *nc-stdplane* -1 -1 "hello world"))
+       ;; I add the space at the end of the string because
+       ;; putstr does not automatcially move the cursor one
+       ;; cell to the right after the last character ('d').
+       (defparameter *putstr-output* (ncplane-putstr-yx *nc-stdplane* -1 -1 "hello world "))
 
        ;; now render (show on screen)
        (defparameter *render-output* (notcurses-render *nc-handle*)))
