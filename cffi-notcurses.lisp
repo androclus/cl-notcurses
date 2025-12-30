@@ -111,10 +111,14 @@ Example:
 ;;; Note to CL users: For the c uchar, you need to supply a simple integer. For
 ;;; instance, to draw an asterisk *, you'd need to supply a 42 (which is an
 ;;; asterisk in ASCII) or else (char-code #\*) which results in the same 42
-(defcfun ("ncplane_putchar_yx" ncplane-putchar-yx) :int (stdplane :pointer) (i :int) (j :int) (c :uchar))
+(defcfun ("ncplane_putchar_yx" ncplane-putchar-yx) :int (stdplane :pointer) (y :int) (x :int) (c :uchar))
 
 ;;; ncplane_putstr_yx(notcurses_stdplane(nc), 0, 0, "hello world");
-(defcfun ("ncplane_putstr_yx" ncplane-putstr-yx) :int (stdplane :pointer) (i :int) (j :int) (s :string))
+(defcfun ("ncplane_putstr_yx" ncplane-putstr-yx) :int (stdplane :pointer) (y :int) (x :int) (s :string))
+
+;;; Move the cursor relative to current position
+;;; API int ncplane_cursor_move_rel(struct ncplane* n, int y, int x)
+(defcfun ("ncplane_cursor_move_rel" ncplane-cursor-move-rel) :int (stdplane :pointer) (y :int) (x :int))
 
 ;;; C example:
 ;;;    notcurses_render(nc);
