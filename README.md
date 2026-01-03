@@ -5,13 +5,12 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 
 # Files
 
-- **package.lisp** - package definition
-- **src/cl-notcurses.lisp** - the meat of the package (Lisp wrapper functions)
-- **examples/** - A directory of example lisp programs using the wrappers
+- **src/** - cl-notcurses package definition and wrappers
+- **examples/** - Example CL programs using the wrappers
 
 # Requirements
 
-- **notcurses shared libraries** (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
+- **notcurses shared C libraries** (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
   ```
   /usr/lib64/libnotcurses.so =>
     /usr/lib64/libnotcurses.so.3 =>
