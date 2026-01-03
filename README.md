@@ -104,6 +104,6 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 9. Either way, when you call that startxx function, you should be able to see the results in the external terminal window with the swank/slynk server you set up.
 
 10. When you are done, you can close down the terminal-window's slime/slynk server from within emacs:
-   ```
-   CL-USER> (quit)
-   ```
+      ```
+      CL-USER> (quit)
+      ```
