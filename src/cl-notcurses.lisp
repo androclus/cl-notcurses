@@ -6,19 +6,14 @@
 ;;; Once I move system to asdf (haven't learned it yet) much of this
 ;;; below will be reduced. For now, this all just loads what is
 ;;; necessary into your running Lisp image in the script itself.
-(load "~/quicklisp/setup.lisp")
-(ql:quickload "cl-setlocale")
-(ql:quickload "asdf")
-(ql:quickload "cffi")
-(asdf:load-system :cffi)
+;;;(load "~/quicklisp/setup.lisp")
+;;;(ql:quickload "cl-setlocale")
+;;;(ql:quickload "asdf")
+;;;(ql:quickload "cffi")
+;;;(asdf:load-system :cffi)
 (cl-setlocale:setlocale :lc-all "")
 
-;;; Name this CL package for wrapping C notcurses calls
-(defpackage :cffi-notcurses
-  (:use :common-lisp :cffi :cl :cl-user))
-
-;;; Everything declared below this line will be in our package
-(in-package :cffi-notcurses)
+(in-package :cl-notcurses)
 
 ;;; For connecting to the two shared libraries on any system
 ;;; which contain all the API and static inline notcurses
@@ -35,7 +30,7 @@
 (use-foreign-library libnotcurses-3-ffi)
 
 ;;; notcurses options structure
-(defcstruct notcurses_options
+(cffi:defcstruct notcurses-options
   (term :string)
   (loglevel :int)
   (margin-t :int)
