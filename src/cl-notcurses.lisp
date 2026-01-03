@@ -1,33 +1,33 @@
-;;; cffi-notcurses.lisp
+;;; src/cl-notcurses.lisp
 ;;; https://github.com/androclus/cl-notcurses
 ;;; first rough draft of minimal set of notcurses CFFI wrappers
-;;; to run Wyatt Sheffield's simple demo app as a Lisp program.
 
-;;; Once I move system to asdf (haven't learned it yet) much of this
-;;; below will be reduced. For now, this all just loads what is
-;;; necessary into your running Lisp image in the script itself.
-;;;(load "~/quicklisp/setup.lisp")
-;;;(ql:quickload "cl-setlocale")
-;;;(ql:quickload "asdf")
-;;;(ql:quickload "cffi")
-;;;(asdf:load-system :cffi)
+;;; According the Nick Black, this is required for all notcurses projects
 (cl-setlocale:setlocale :lc-all "")
 
+;;; put all the below symbols in the package
 (in-package :cl-notcurses)
 
-;;; For connecting to the two shared libraries on any system
+;;; For connecting to the 3 shared libraries on any system
 ;;; which contain all the API and static inline notcurses
 ;;; calls we'll want to be wrapping.
-(define-foreign-library libnotcurses-3-c
+(define-foreign-library libnotcurses3
   (:darwin (:or "libnotcurses.3.dylib" "libnotcurses.dylib"))
   (:unix (:or "libnotcurses.so.3" "libnotcurses.so"))
   (t (:default "libnotcurses")))
-(use-foreign-library libnotcurses-3-c)
-(define-foreign-library libnotcurses-3-ffi
+(use-foreign-library libnotcurses3)
+
+(define-foreign-library libnotcurses-core3
+  (:darwin (:or "libnotcurses-core.3.dylib" "libnotcurses-core.dylib"))
+  (:unix (:or "libnotcurses-core.so.3" "libnotcurses-core.so"))
+  (t (:default "libnotcurses-core")))
+(use-foreign-library libnotcurses-core3)
+
+(define-foreign-library libnotcurses-ffi3
   (:darwin (:or "libnotcurses-ffi.3.dylib" "libnotcurses-ffi.dylib"))
   (:unix (:or "libnotcurses-ffi.so.3" "libnotcurses-ffi.so"))
   (t (:default "libnotcurses-ffi")))
-(use-foreign-library libnotcurses-3-ffi)
+(use-foreign-library libnotcurses-ffi3)
 
 ;;; notcurses options structure
 (cffi:defcstruct notcurses-options
