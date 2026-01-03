@@ -102,26 +102,8 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
    CL-NOTCURSES> _
    ```
 9. Either way, when you call that startxx function, you should be able to see the results in the external terminal window with the swank/slynk server you set up.
-10. When you are done, you can close down the slime/slynk server from within emacs by
-   - for slime:
-      ```
-      M-x slime-disconnect
-      ```
-   - for sly:
-      ```
-      M-x sly-disconnect
-      ```
-   - and then quit inside emacs at the prompt:
-      ```
-      CL-USER> (quit)
-      ```
-11. You may or may not also have to kill the swank/sly server in the terminal window explicitly as well, from within that window:
-      ```bash
-      ^Z
-      [1]+  Stopped                    sbcl
-      $ kill -9 %1
-      [1]+  Stopped                    sbcl
-      $
-      [1]+  Killed
-      $ _
-      ```
+
+10. When you are done, you can close down the terminal-window's slime/slynk server from within emacs:
+   ```
+   CL-USER> (quit)
+   ```
