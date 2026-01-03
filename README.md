@@ -116,12 +116,12 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
       CL-USER> (quit)
       ```
 11. You may or may not also have to kill the swank/sly server in the terminal window explicitly as well, from within that window:
-   ```bash
-   ^Z
-   [1]+  Stopped                    slynk
-   $ kill -9 %1
-   [1]+  Stopped                    slynk-sbcl
-   $
-   [1]+  Killed
-   $ _
-   ```
+      ```bash
+      ^Z
+      [1]+  Stopped                    sbcl
+      $ kill -9 %1
+      [1]+  Stopped                    sbcl
+      $
+      [1]+  Killed
+      $ _
+      ```
