@@ -70,9 +70,9 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
        ```lisp
        M-x sly-connect
        ```
-6. Load the cl-ncurses project/library:
+6. Load the cl-notcurses project/library:
    ```lisp
-   CL-USER> (asdf:load-system "cl-ncurses")
+   CL-USER> (asdf:load-system "cl-notcurses")
    T
    CL-USER> _
    ```
