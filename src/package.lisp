@@ -5,14 +5,21 @@
    #:ncoption-flags
    #:ncoptions-flags-bitfield-value
    #:nchandle
-   #:notcurses-init
+   #:notcurses-detected-terminal
+   #:notcurses-canpixel
+   #:notcurses-capabilities
    #:notcurses-core-init
+   #:notcurses-init
+   #:notcurses-osversion
+   #:notcurses-render
    #:notcurses-stop
    #:notcurses-stdplane
+   #:ncplane-cursor-move-rel
+   #:ncplane-dim-yx
+   #:ncplane-printf-yx
    #:ncplane-putchar-yx
    #:ncplane-putstr-yx
-   #:ncplane-cursor-move-rel
-   #:notcurses-render
+   #:ncplane-set-scrolling
    #:file-pointer
    #:fopen
    #:fclose

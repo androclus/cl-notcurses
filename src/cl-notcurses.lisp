@@ -61,6 +61,19 @@
                                ;   x0200 scrolling
                                ;     => x252, i.e., 594
 
+;;; Capabilities, derived from terminfo, environment variables, and queries
+(cffi:defcstruct nccapabilities
+  (colors :uint) ; size of palette for indexed colors
+  (utf8 :boolean) ; are we using utf-8 encoding? from nl_langinfo(3)
+  (rgb :boolean) ; 24bit color? COLORTERM/heuristics/terminfo 'rgb'
+  (can-change-colors :boolean) ; can we change the palette? terminfo 'ccc'
+  ;; these are assigned wholly through TERM- and query-based heuristics
+  (halfblocks :boolean) ; we assume halfblocks, but some are known to lack them
+  (quadrants :boolean) ; do we have (good, vetted) Unicode 1 quadrant support?
+  (sextants :boolean) ; do we have (good, vetted) Unicode 13 sextant support?
+  (octants :boolean)  ; do we have (good, vetted) Unicode 16 octant support?
+  (braille :boolean)) ; do we have Braille support? (linux console does not)
+
 ;;; I add a convenience function here which is not in notcurses.h
 (defun ncoptions-flags-bitfield-value (x)
   (declare (type list x))
@@ -72,6 +85,26 @@ Example:
                                   :ncoption-scrolling)) => #x0210 (528)"
   (foreign-bitfield-value 'ncoption-flags x))
 
+;;; C Def:
+;;;    static inline bool notcurses_canpixel(const struct notcurses* nc)
+(defcfun ("notcurses_canpixel" notcurses-canpixel) :boolean (nc :pointer))
+
+;;; C Def:
+;;;    API const nccapabilities* notcurses_capabilities(const struct notcurses* n)
+;;;     __attribute__ ((nonnull (1)));
+;;; C Example:
+;;;    nccapabilities const* caps = notcurses_capabilities(nc);
+(defcfun ("notcurses_capabilities" notcurses-capabilities) :pointer (nc :pointer))
+
+;;; And the (lightweight) version for cases where there will be no "media" needs
+(defcfun ("notcurses_core_init" notcurses-core-init) :pointer (opts :pointer) (fp :pointer ))
+
+;;; // Returns the name (and sometimes version) of the terminal, as Notcurses
+;;; // has been best able to determine.
+;;; ALLOC API char* notcurses_detected_terminal(const struct notcurses* nc)
+;;;   __attribute__ ((nonnull (1)));
+(defcfun ("notcurses_detected_terminal" notcurses-detected-terminal) :pointer (nc :pointer))
+
 ;;; C Def (include/notcurses/notcurses.h):
 ;;;    API ALLOC struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
 ;;; C Example:
@@ -82,8 +115,16 @@ Example:
 (defctype nchandle :pointer)
 (defcfun ("notcurses_init" notcurses-init) :pointer (opts :pointer) (fp :pointer ))
 
-;;; And the (lightweight) version for cases where there will be no "media" needs
-(defcfun ("notcurses_core_init" notcurses-core-init) :pointer (opts :pointer) (fp :pointer ))
+;;; // Returns a heap-allocated copy of human-readable OS name and version.
+;;; API ALLOC char* notcurses_osversion(void);
+(defcfun ("notcurses_osversion" notcurses-osversion) :pointer )
+
+
+
+;;; C example:
+;;;    notcurses_render(nc);
+;;; Reflect changes made now to the actual screen
+(defcfun ("notcurses_render" notcurses-render) :int (nchandle :pointer))
 
 ;;; C Def (include/notcurses/notcurses.h):
 ;;;    API int notcurses_stop(struct notcurses* nc);
@@ -98,6 +139,23 @@ Example:
 ;;; Open up the 1st/main (i.e., "standard") plane in the notcurses instance
 (defcfun ("notcurses_stdplane" notcurses-stdplane) :pointer (nc :pointer))
 
+
+;;; NCPLANE
+
+;;; Move the cursor relative to current position
+;;; API int ncplane_cursor_move_rel(struct ncplane* n, int y, int x)
+(defcfun ("ncplane_cursor_move_rel" ncplane-cursor-move-rel) :int (stdplane :pointer) (y :int) (x :int))
+
+;;; Return the dimensions of this ncplane. y or x may be NULL.
+;;; API void ncplane_dim_yx(const struct ncplane* n, unsigned* RESTRICT y, unsigned* RESTRICT x)
+;;;   __attribute__ ((nonnull (1)));
+(defcfun ("ncplane_dim_yx" ncplane-dim-yx) :void (stdplane :pointer) (dimy-ptr (:pointer :int)) (dimx-ptr (:pointer :int)))
+
+;;; print a formatted string (and its slot variables) to the screen at position y,x. (If y and x
+;;; are both -1, then just start printing wherever the cursor is encountered at start of program.)
+;;;
+(defcfun ("ncplane_printf_yx" ncplane-printf-yx) :int (stdplane :pointer) (y :int) (x :int) (s :string) &rest)
+
 ;;; C example:
 ;;;    ncplane_putchar_yx(stdplane, i, j, '*');
 ;;; Put a character (signed or unsigned 8 bit) into a cell and cell into
@@ -111,14 +169,12 @@ Example:
 ;;; ncplane_putstr_yx(notcurses_stdplane(nc), 0, 0, "hello world");
 (defcfun ("ncplane_putstr_yx" ncplane-putstr-yx) :int (stdplane :pointer) (y :int) (x :int) (s :string))
 
-;;; Move the cursor relative to current position
-;;; API int ncplane_cursor_move_rel(struct ncplane* n, int y, int x)
-(defcfun ("ncplane_cursor_move_rel" ncplane-cursor-move-rel) :int (stdplane :pointer) (y :int) (x :int))
-
-;;; C example:
-;;;    notcurses_render(nc);
-;;; Reflect changes made now to the actual screen
-(defcfun ("notcurses_render" notcurses-render) :int (nchandle :pointer))
+;;; All planes are created with scrolling disabled. Scrolling can be dynamically
+;;; controlled with ncplane_set_scrolling(). Returns true if scrolling was
+;;; previously enabled, or false if it was disabled.
+;;; API bool ncplane_set_scrolling(struct ncplane* n, unsigned scrollp)
+;;;  __attribute__ ((nonnull (1)));
+(defcfun ("ncplane_set_scrolling" ncplane-set-scrolling) :bool (stdplane :pointer) (scrollp :uint))
 
 ;;; ==================================================================
 ;;; libc calls for opening/closing STDOUT from the C side prior to and
