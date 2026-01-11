@@ -21,8 +21,7 @@
         (dimy-ptr (cffi:foreign-alloc :uint)) ; height (in rows) of terminal
         (dimx-ptr (cffi:foreign-alloc :uint)) ; width (in columns) of terminal
         (str-osversion (cffi:foreign-alloc :string)) ; version of the o/s (according to notcurses)
-        (str-terminal (cffi:foreign-alloc :string)) ; terminal name (according to notcurses)
-        ) ; pointer to the STDOUT (*standard-output*), used to open the terminal before notcurses takes over
+        (str-terminal (cffi:foreign-alloc :string))) ; terminal name (according to notcurses)
       (declare (ignorable caps-ptr)) ; this line is just so we don't get the style-warning that
                                      ; "The variable CAPS-PTR is assigned but never read."
 
