@@ -33,7 +33,7 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
   ```
   respectively.
 
-## Running from inside emacs
+## Running the examples from inside emacs
 1. **git clone** this project into your `~/common-lisp` or `~/quicklisp/local-projects` dir
 2. Open up another terminal window (xterm, kitty, wezterm, rxvt, konsole, etc.)
 3. In that terminal window, start up your Lisp processor (sbcl, clisp, ccl, or ecl):
