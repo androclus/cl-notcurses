@@ -105,7 +105,7 @@ $ ./run00.sh
 ```
 ## The Examples
 
-Note: These examples follow the same 3 that Nick demonstrates in C. I have tried (with huge help from Gemini!) to make these as bareboned and direct to the C layer as possible, without relying on FFI pass-by-value translations which slow everything down. Thank goodness Nick wrote an --ffi layer library which makes it easier for all of us in other languages (Rust, CL, Python) to call these functions with the minimum of overhead since his functions accept our data in the format that our languages are used to and we don't have to write any translations.
+Note: These examples follow the same four C examples stored at the low-level Rust wrapper library GitHub project [libnotcurses-sys](https://github.com/dankamongmen/libnotcurses-sys/tree/main/examples/C) provided by Nick himself. I have tried (with huge help from Gemini!) in translating these examples into Lisp to make them as bareboned and direct to the C layer as possible, without relying on FFI pass-by-value translations which slow everything down. Thank goodness Nick wrote an libnotcurses-ffi3 library layer which makes it easier for all of us in other languages (Rust, CL, Python) to call these functions with the minimum of overhead since his functions accept our data in the format that our languages are used to and we don't have to write any translations.
 
 1. **00-hello-world.lisp**
     - This example just gets notcurses to take over the whole screen, put a "hello world" up in the upper corner, hold it for 2 or 3 seconds, and then quit, returning the terminal to its normal mode.
