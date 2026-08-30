@@ -1,20 +1,24 @@
 
 # cl-notcurses
 
-- **WHAT IT IS:** A first attempt at a Common Lisp wrapper library for the [notcurses](https://github.com/dankamongmen/notcurses) terminal programming C library by Nick Black.
-- **WHY I AM MAKING IT:** I thought notcurses, Lisp, and TUIs are all super cool, so why not combine them and make a set of tools that make it easy for developers to make cool looking TUIs (complete with widget sets) in Lisp?
-- **AUDIENCE:** Lisp Developers
-- **PLATFORMS:** Right now, I am developing on a Linux box, and that's all I have time for right now. But eventually, everything supporting notcurses and Common Lisp.
-- **STATE:** "Pre-alpha": Just the bare-bones getting started. Learning as I go.
+  - **WHAT IT IS:** A first attempt at a Common Lisp wrapper library for the [notcurses](https://github.com/dankamongmen/notcurses) terminal programming C library by Nick Black.
+  - **WHY I AM MAKING IT:** I thought notcurses, Lisp, and TUIs are all super cool, so why not combine them and make a set of tools that make it easy for developers to make cool looking TUIs (complete with widget sets) in Lisp?
+  - **AUDIENCE:** Lisp Developers
+  - **PLATFORMS:** Right now, I am developing on a Linux box, and that's all I have time for right now. But eventually, everything supporting notcurses and Common Lisp.
+  - **STATE:** "Pre-alpha": Just the bare-bones getting started. Learning as I go.
 
 # Files
-
-- **src/** - cl-notcurses package definition and wrappers
-- **examples/** - Example CL programs using the wrappers
+  - **start-slynk.lisp** - Bash shell script for starting up a Slynk web server running SBCL which can be connected to and will take commands from a remote SLY REPL within Emacs, if you want to run the examples from there.
+  - **start-swank.lisp** - Bash shell script for starting up a Swant web server running SBCL which can be connected to and will take commands from a remote SLIME REPL within Emacs, if you want to run the examples from there.
+  - **run\*.sh** - Bash shell scripts for running the examples directly from the command-line
+  - **src/** - cl-notcurses package definition and wrappers
+  - **examples/** - Example CL programs using the wrappers
 
 # Requirements
 
-- **notcurses shared C libraries** (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
+1. A **Linux** machine
+2. **SBCL installed**.
+3. **notcurses shared C libraries** (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
   ```
   /usr/lib64/libnotcurses.so =>
     /usr/lib64/libnotcurses.so.3 =>
@@ -35,7 +39,9 @@
   libnotcurses-core3
   libnotcurses-ffi3
   ```
-  respectively.
+respectively.
+
+4. Emacs is only required if you prefer it and want to run the examples remotely using SLIME » Swank or SLY » Slynk.
 
 ## Running the examples from inside emacs
 1. **git clone** this project into your `~/common-lisp` or `~/quicklisp/local-projects` dir
