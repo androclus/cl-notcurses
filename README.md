@@ -40,13 +40,14 @@
   libnotcurses-ffi3
   ```
 respectively.
+4. **Terminfo** library (normally supplied with -- or a prerequisite for -- your *ncurses* package(s))
   - **Contributors:** If you want to tell me the names of the packages on your Linux distro (or Mac or Win) that supply these libraries, I will gratefully add them here!)
 4. **Optional: Emacs** is only required if you prefer it and want to run the examples remotely using SLIME » Swank or SLY » Slynk.
 5. **Optional: Kitty** or **Wezterm** terminal emulator programs (which seem to be the fastest) but any standard known terminal emulator (or even hardware) with a well-specified terminfo entry should work.
 
 ## Running the examples from inside emacs
 1. **git clone** this project into your `~/common-lisp` or `~/quicklisp/local-projects` dir
-2. cd into cl-notcurses
+2. From there, cd into the `cl-notcurses` project dir.
 3. Start up a Swank or Slynk server (depending on whether you use SLIME or SLY in your Emacs). Convenience scripts have been included in the project's main directory:
    - If you use SLIME (Swank server):
    ```bash
