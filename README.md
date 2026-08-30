@@ -10,6 +10,7 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 
 # Requirements
 
+- Right now, I am developing on a Linux box, and that's all I have time for right now
 - **notcurses shared C libraries** (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
   ```
   /usr/lib64/libnotcurses.so =>
