@@ -1,7 +1,11 @@
 
 # cl-notcurses
 
-A first attempt at a Common Lisp wrapper library for the [notcurses](https://github.com/dankamongmen/notcurses) terminal programming C library by Nick Black.
+- **WHAT IT IS:** A first attempt at a Common Lisp wrapper library for the [notcurses](https://github.com/dankamongmen/notcurses) terminal programming C library by Nick Black.
+- **WHY I AM MAKING IT:** I thought notcurses, Lisp, and TUIs are all super cool, so why not combine them and make a set of tools that make it easy for developers to make cool looking TUIs (complete with widget sets) in Lisp?
+- **AUDIENCE:** Lisp Developers
+- **PLATFORMS:** Right now, I am developing on a Linux box, and that's all I have time for right now. But eventually, everything supporting notcurses and Common Lisp.
+- **STATE:** "Pre-alpha": Just the bare-bones getting started. Learning as I go.
 
 # Files
 
@@ -10,7 +14,6 @@ A first attempt at a Common Lisp wrapper library for the [notcurses](https://git
 
 # Requirements
 
-- Right now, I am developing on a Linux box, and that's all I have time for right now
 - **notcurses shared C libraries** (.so or .dylib or .dll) on your system.  For instance, on my Linux OpenSUSE Tumbleweed system, these are:
   ```
   /usr/lib64/libnotcurses.so =>
