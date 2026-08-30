@@ -40,8 +40,9 @@
   libnotcurses-ffi3
   ```
 respectively.
-
-4. Emacs is only required if you prefer it and want to run the examples remotely using SLIME » Swank or SLY » Slynk.
+  - **Contributors:** If you want to tell me the package names on your Linux distro (or Mac or Win) that supply these libraries, I will gratefully add them here!)
+4. **Optional: Emacs** is only required if you prefer it and want to run the examples remotely using SLIME » Swank or SLY » Slynk.
+5. **Optional: Kitty** or **Wezterm** terminal emulator programs (which seem to be the fastest) but any standard known terminal emulator (or even hardware) with a well-specified terminfo entry should work.
 
 ## Running the examples from inside emacs
 1. **git clone** this project into your `~/common-lisp` or `~/quicklisp/local-projects` dir
