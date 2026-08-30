@@ -92,11 +92,10 @@ $ cd ~/common-lisp/cl-notcurses
 ``` bash
 $ bash ./run00.sh
 ```
-and so on.
 3. Alternatively, make the scripts executable:
 
 ``` bash
-$ chmod +x run0*
+$ chmod +x run*
 ```
 4. and now you can run them directly:
 
