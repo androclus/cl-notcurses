@@ -40,7 +40,7 @@
   libnotcurses-ffi3
   ```
 respectively.
-  - **Contributors:** If you want to tell me the package names on your Linux distro (or Mac or Win) that supply these libraries, I will gratefully add them here!)
+  - **Contributors:** If you want to tell me the names of the packages on your Linux distro (or Mac or Win) that supply these libraries, I will gratefully add them here!)
 4. **Optional: Emacs** is only required if you prefer it and want to run the examples remotely using SLIME » Swank or SLY » Slynk.
 5. **Optional: Kitty** or **Wezterm** terminal emulator programs (which seem to be the fastest) but any standard known terminal emulator (or even hardware) with a well-specified terminfo entry should work.
 
