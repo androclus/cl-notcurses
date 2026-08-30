@@ -103,3 +103,12 @@ $ chmod +x run*
 ``` bash
 $ ./run00.sh
 ```
+## The Examples
+1. 00-hello-world.lisp
+  - This example just gets notcurses to take over the whole screen, put a "hello world" up in the upper corner, hold it for 2 or 3 seconds, and then quit, returning the terminal to its normal mode.
+2. 01-hello-world.lisp
+  - This is the only example I have so far which does /not/ take over the screen mode, but demonstrates notcurses' ability to just work with the CLI. It will put a "hello world" starting wherever your cursor already happens to be.
+3. 02-capabilities.lisp
+  - This example shows the ability to get information out of the notcurses system. A few attributes are explored but there are many others.
+4. 03-asterisks.lisp
+  - This example shows the ability to run a bunch of asterisks down the screen in rows and columns, with 2 loops. You can see how fast it goes: almost as fast as Nick's C version!
