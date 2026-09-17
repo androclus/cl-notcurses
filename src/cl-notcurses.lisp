@@ -14,6 +14,11 @@
   (flags :uint64))
 
 
+;;; Core initialization/rendering functions (notcurses_core_init, ncplane_putstr_yx) live in :library libnotcurses-core3.
+;;;
+;;; Input and widget functions (notcurses_getc_nblock) live in :library libnotcurses3.
+;;;
+;;; Any special wrapper functions designed specifically for language bindings live in :library libnotcurses-ffi3.
 
 ;;; 1. Library Loading Blocks
 (define-foreign-library libnotcurses3
@@ -127,3 +132,24 @@
 
 (defcfun ("notcurses_canpixel" %notcurses-canpixel) :boolean
 (nc :pointer))
+
+;; 1. Standard C timespec layout (tv_sec + tv_nsec)
+(cffi:defcstruct timespec
+  (tv-sec  :long)
+  (tv-nsec :long))
+
+;; 2. The C input structure layout
+(cffi:defcstruct ncinput
+  (id :uint32)
+  (y :int32)
+  (x :int32)
+  (utf8 :uint8 :count 5)
+  (evtype :int)
+  (modifiers :uint32)
+  (ypx :int32)
+  (xpx :int32))
+
+;; 3. Get a character (non-blocking)
+(cffi:defcfun ("notcurses_get_nblock" %notcurses-get-nblock) :uint32
+  (nc :pointer)
+  (ni :pointer))
