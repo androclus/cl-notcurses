@@ -128,3 +128,5 @@ Note: These examples follow the same four C examples stored at the low-level Rus
     - This example shows the ability to get information out of the notcurses system. A few attributes are explored but there are many others.
 4. **03-asterisks.lisp**
     - This example shows the ability to run a bunch of asterisks down the screen in rows and columns, with 2 loops. You can see how fast it goes: almost as fast as Nick's C version!
+5. **04-input-key.lisp**
+    - This example shows the ability to wait for a key press.

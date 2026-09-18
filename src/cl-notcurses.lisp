@@ -21,23 +21,51 @@
 ;;; Any special wrapper functions designed specifically for language bindings live in :library libnotcurses-ffi3.
 
 ;;; 1. Library Loading Blocks
-(define-foreign-library libnotcurses3
-  (:darwin (:or "libnotcurses.3.dylib" "libnotcurses.dylib"))
-  (:unix (:or "libnotcurses.so.3" "libnotcurses.so"))
-  (t (:default "libnotcurses")))
-(use-foreign-library libnotcurses3)
+;; (define-foreign-library libnotcurses3
+;;   (:darwin (:or "libnotcurses.3.dylib" "libnotcurses.dylib"))
+;;   (:unix (:or "libnotcurses.so.3" "libnotcurses.so"))
+;;   (t (:default "libnotcurses")))
+;; (use-foreign-library libnotcurses3)
 
-(define-foreign-library libnotcurses-core3
-  (:darwin (:or "libnotcurses-core.3.dylib" "libnotcurses-core.dylib"))
-  (:unix (:or "libnotcurses-core.so.3" "libnotcurses-core.so"))
-  (t (:default "libnotcurses-core")))
-(use-foreign-library libnotcurses-core3)
+;; (cffi:define-foreign-library libnotcurses3
+;;   (:unix (:or "libnotcurses.so.3" "libnotcurses.so"))
+;;   (t (:default "notcurses")))
+;; (cffi:use-foreign-library libnotcurses3)
 
-(define-foreign-library libnotcurses-ffi3
-  (:darwin (:or "libnotcurses-ffi.3.dylib" "libnotcurses-ffi.dylib"))
-  (:unix (:or "libnotcurses-ffi.so.3" "libnotcurses-ffi.so"))
-  (t (:default "libnotcurses-ffi")))
-(use-foreign-library libnotcurses-ffi3)
+;; (define-foreign-library libnotcurses-core3
+;;   (:darwin (:or "libnotcurses-core.3.dylib" "libnotcurses-core.dylib"))
+;;   (:unix (:or "libnotcurses-core.so.3" "libnotcurses-core.so"))
+;;   (t (:default "libnotcurses-core")))
+;; (use-foreign-library libnotcurses-core3)
+
+;; (cffi:define-foreign-library libnotcurses-core3
+;;   (:unix (:or "libnotcurses-core.so.3" "libnotcurses-core.so"))
+;;   (t (:default "notcurses-core")))
+;; (cffi:use-foreign-library libnotcurses-core)
+
+;; (define-foreign-library libnotcurses-ffi3
+;;   (:darwin (:or "libnotcurses-ffi.3.dylib" "libnotcurses-ffi.dylib"))
+;;   (:unix (:or "libnotcurses-ffi.so.3" "libnotcurses-ffi.so"))
+;;   (t (:default "libnotcurses-ffi")))
+;; (use-foreign-library libnotcurses-ffi3)
+
+;; (cffi:define-foreign-library libnotcurses-ffi
+;;   (:unix (:or "libnotcurses-ffi.so.3" "libnotcurses-ffi.so"))
+;;   (t (:default "notcurses-ffi")))
+;; (cffi:use-foreign-library libnotcurses-ffi)
+
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (cffi:define-foreign-library libnotcurses-core
+    (:unix (:or "libnotcurses-core.so.3" "libnotcurses-core.so"))
+    (t (:default "notcurses-core")))
+
+  (cffi:define-foreign-library libnotcurses-ffi
+    (:unix (:or "libnotcurses-ffi.so.3" "libnotcurses-ffi.so"))
+    (t (:default "notcurses-ffi")))
+
+  (cffi:use-foreign-library libnotcurses-core)
+  (cffi:use-foreign-library libnotcurses-ffi))
 
 ;;; 2. Data layouts such as structs, bitfields, etc not always used but useful
 ;;; in certain situations
@@ -71,7 +99,7 @@
 ;;   (flags :int64))
 
 ;;; Add this back into your main cl-notcurses.lisp base file:
-(defbitfield ncoption-flags
+(cffi:defbitfield ncoption-flags
   (:ncoption-inhibit-setlocale #x0001)
   (:ncoption-no-clear-bitmaps #x0002)
   (:ncoption-no-winch-sighandler #x0004)
@@ -94,43 +122,43 @@
 
 (declaim (inline %notcurses-core-init %ncplane-putstr-yx))
 
-(defcfun ("notcurses_core_init" %notcurses-core-init) :pointer
-  (opts :pointer)
-  (fp :pointer))
+(cffi:defcfun ("notcurses_core_init" %notcurses-core-init :library libnotcurses-core) :pointer
+  (opts :pointer) (fp :pointer))
 
-(defcfun ("ncplane_putstr_yx" %ncplane-putstr-yx) :int
-  (stdplane :pointer)
-  (y :int)
-  (x :int)
-  (str :string))
+(cffi:defcfun ("ncplane_putstr_yx" %ncplane-putstr-yx :library libnotcurses-ffi) :int
+  (n :pointer) (y :int) (x :int) (str :string))
 
-(defcfun ("notcurses_render" %notcurses-render) :int
-  (nchandle :pointer))
 
-(defcfun ("notcurses_stop" %notcurses-stop) :void
+(cffi:defcfun ("notcurses_render" %notcurses-render :library libnotcurses-ffi) :int
   (nc :pointer))
 
-(defcfun ("notcurses_stdplane" %notcurses-stdplane) :pointer
+
+(cffi:defcfun ("notcurses_stop" %notcurses-stop :library libnotcurses-core) :int
   (nc :pointer))
 
-(defcfun ("ncplane_dim_yx" %ncplane-dim-yx) :void
+
+(cffi:defcfun ("notcurses_stdplane" %notcurses-stdplane :library libnotcurses-core) :pointer
+  (nc :pointer))
+
+
+(cffi:defcfun ("ncplane_dim_yx" %ncplane-dim-yx) :void
   (stdplane :pointer)
   (dimy-ptr (:pointer :int))
   (dimx-ptr (:pointer :int)))
 
-(defcfun ("ncplane_set_scrolling" %ncplane-set-scrolling) :bool
+(cffi:defcfun ("ncplane_set_scrolling" %ncplane-set-scrolling) :bool
   (stdplane :pointer)
   (scrollp :uint))
 
-(defcfun ("notcurses_osversion" %notcurses-osversion) :pointer )
+(cffi:defcfun ("notcurses_osversion" %notcurses-osversion) :pointer )
 
-(defcfun ("notcurses_detected_terminal" %notcurses-detected-terminal) :pointer
+(cffi:defcfun ("notcurses_detected_terminal" %notcurses-detected-terminal) :pointer
   (nc :pointer))
 
-(defcfun ("notcurses_capabilities" %notcurses-capabilities) :pointer
+(cffi:defcfun ("notcurses_capabilities" %notcurses-capabilities) :pointer
   (nc :pointer))
 
-(defcfun ("notcurses_canpixel" %notcurses-canpixel) :boolean
+(cffi:defcfun ("notcurses_canpixel" %notcurses-canpixel) :boolean
 (nc :pointer))
 
 ;; 1. Standard C timespec layout (tv_sec + tv_nsec)
@@ -139,17 +167,40 @@
   (tv-nsec :long))
 
 ;; 2. The C input structure layout
+;;typedef struct ncinput {
+;;   uint32_t id;
+;;   int y, x;
+;;   char utf8[5];
+;;   bool alt, shift, ctrl;
+;;   ncintype_e evtype;      // an enum -- 4 bytes on Linux/GCC
+;;   unsigned modifiers;
+;;   int ypx, xpx;
+;;   uint32_t eff_text[5];
+;; } ncinput;
+
 (cffi:defcstruct ncinput
-  (id :uint32)
-  (y :int32)
-  (x :int32)
-  (utf8 :uint8 :count 5)
-  (evtype :int)
-  (modifiers :uint32)
-  (ypx :int32)
-  (xpx :int32))
+  (id       :uint32)
+  (y        :int)
+  (x        :int)
+  (utf8     :char :count 5)
+  (alt      :boolean)
+  (shift    :boolean)
+  (ctrl     :boolean)
+  (evtype   :int)            ; enum -> plain :int is safest unless you defcenum it
+  (modifiers :unsigned-int)
+  (ypx      :int)
+  (xpx      :int)
+  (eff-text :uint32 :count 5))
+
 
 ;; 3. Get a character (non-blocking)
-(cffi:defcfun ("notcurses_get_nblock" %notcurses-get-nblock) :uint32
-  (nc :pointer)
-  (ni :pointer))
+
+(cffi:defcfun ("notcurses_get_nblock" %notcurses-get-nblock :library libnotcurses-ffi) :uint32
+  (nc :pointer) (ni :pointer))
+
+
+;; ---------------------------------------------------------------------------------------
+
+
+
+
